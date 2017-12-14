@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+/*using ConsoleApplication1.dll;*/
 
 public class map_spots : MonoBehaviour {
     float timer = 0;
