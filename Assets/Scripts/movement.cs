@@ -1,13 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class movement : MonoBehaviour {
     Vector2[] points;
     GameObject map;
     map_spots spots;
 
+	Slider speed_slider;
+	Text speed_text;
+
+	int speed;
+
 	void Start () {
+		speed_slider = GameObject.Find ("speed").GetComponent<Slider> ();
+		speed_text = GameObject.Find ("Text1").GetComponent<Text> ();
+
         map = GameObject.Find("world_map");
         spots = map.GetComponent<map_spots>();
         points = spots.spots;
@@ -18,6 +27,9 @@ public class movement : MonoBehaviour {
     float x1=0,x2=0,y1=0,y2=0,z1=0,z2=0;
 
     void Update () {
+		speed = (int)(speed_slider.value);
+		speed_text.text = "speed: " + speed;
+
         points = spots.spots;
 
         float minimalDistance=1000000;
@@ -48,7 +60,7 @@ public class movement : MonoBehaviour {
         }
           if (ch)
            {
-            alpha+=3;
+            alpha+=speed;
             transform.position = new Vector2
                 (
                     point[0] + (minimalDistance * 0.99f) * Mathf.Cos(Mathf.PI * alpha / 180),
@@ -57,7 +69,7 @@ public class movement : MonoBehaviour {
         }
         else
         {
-            alpha-=3;
+            alpha-=speed;
             transform.position = new Vector2
                 (
                     point[0] + (minimalDistance * 0.99f) * Mathf.Cos(Mathf.PI * alpha / 180),
